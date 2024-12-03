@@ -41,14 +41,8 @@ resource "aws_subnet" "private_subnet_2" {
 resource "aws_route_table" "route_table_1_for_internal_gateway" {
   vpc_id = "${aws_vpc.aws_vpc.id}"
 
-  # since this is exactly the route AWS will create, the route will be adopted
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "local"
-  }
-
-  route {
-    cidr_block = "10.0.1.0/24"
     gateway_id = aws_internet_gateway.internet_gateway_for_trial_vpc.id
   }
 
@@ -57,7 +51,44 @@ resource "aws_route_table" "route_table_1_for_internal_gateway" {
   }
 }
 
-resource "aws_route_table_association" "a" {
+resource "aws_route_table_association" "aws_route_table_association_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.route_table_1_for_internal_gateway.id
+}
+
+#elastic ip in vpc
+resource "aws_eip" "Elastic_IP_for_NAT_Gateway" {
+  domain = "vpc"
+
+  tags = {
+    Name = "Elastic_IP_for_NAT_Gateway"
+  }
+}
+
+
+resource "aws_nat_gateway" "NAT_gateway_for_trial_vpc" {
+  allocation_id = aws_eip.Elastic_IP_for_NAT_Gateway.id
+  subnet_id     = aws_subnet.public_subnet_1.id
+
+  tags = {
+    Name = "NAT_gateway_for_trial_vpc"
+  }
+}
+
+resource "aws_route_table" "route_table_2_from_NAT_gateway_to_private_subnet" {
+  vpc_id = "${aws_vpc.aws_vpc.id}"
+
+  route {
+    cidr_block = "10.0.1.0/24"
+    nat_gateway_id = aws_nat_gateway.NAT_gateway_for_trial_vpc.id
+  }
+
+  tags = {
+    Name = "route_table_2_from_NAT_gateway_to_private_subnet"
+  }
+}
+
+resource "aws_route_table_association" "aws_route_table_association_2" {
+  subnet_id      = aws_subnet.private_subnet_2.id
+  route_table_id = aws_route_table.route_table_2_from_NAT_gateway_to_private_subnet.id
 }
