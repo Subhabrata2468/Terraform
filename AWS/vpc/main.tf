@@ -38,7 +38,7 @@ resource "aws_subnet" "private_subnet_2" {
 }
 
 # Create a Default Network ACL for private subnet
-resource "aws_network_acl" "network_acl" {
+resource "aws_network_acl" "network_acl_for_private_subnet" {
   vpc_id = aws_vpc.aws_vpc.id
 
   # Allow all inbound traffic
@@ -69,7 +69,42 @@ resource "aws_network_acl" "network_acl" {
 # Associate Network ACL with  pricate Subnet
 resource "aws_network_acl_association" "acl_association_for_private_subnet" {
   subnet_id        = aws_subnet.private_subnet_2.id
-  network_acl_id   = aws_network_acl.network_acl.id
+  network_acl_id   = aws_network_acl.network_acl_for_private_subnet.id
+}
+
+# Create a Default Network ACL for private subnet
+resource "aws_network_acl" "network_acl_for_public_subnet" {
+  vpc_id = aws_vpc.aws_vpc.id
+
+  # Allow all inbound traffic
+  ingress {
+    rule_no    = 100
+    protocol   = "-1"
+    action = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  # Allow all outbound traffic
+  egress {
+    rule_no    = 100
+    protocol   = "-1"
+    action = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  tags = {
+    Name = "network-acl-for-subnet-1"
+  }
+}
+
+# Associate Network ACL with  public Subnet
+resource "aws_network_acl_association" "acl_association_for_public_subnet" {
+  subnet_id        = aws_subnet.public_subnet_1.id
+  network_acl_id   = aws_network_acl.network_acl_for_public_subnet.id
 }
 
 resource "aws_route_table" "route_table_1_for_internal_gateway" {
