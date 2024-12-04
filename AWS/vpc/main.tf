@@ -72,7 +72,7 @@ resource "aws_network_acl_association" "acl_association_for_private_subnet" {
   network_acl_id   = aws_network_acl.network_acl_for_private_subnet.id
 }
 
-# Create a Default Network ACL for private subnet
+# Create a Default Network ACL for public subnet
 resource "aws_network_acl" "network_acl_for_public_subnet" {
   vpc_id = aws_vpc.aws_vpc.id
 
@@ -109,7 +109,6 @@ resource "aws_network_acl_association" "acl_association_for_public_subnet" {
 
 resource "aws_route_table" "route_table_1_for_internal_gateway" {
   vpc_id = "${aws_vpc.aws_vpc.id}"
-
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet_gateway_for_trial_vpc.id
