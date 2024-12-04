@@ -40,8 +40,7 @@ resource "aws_subnet" "private_subnet_2" {
 # Create a Default Network ACL for private subnet
 resource "aws_network_acl" "network_acl_for_private_subnet" {
   vpc_id = aws_vpc.aws_vpc.id
-
-  # Allow all inbound traffic
+  
   ingress {
     rule_no    = 100
     protocol   = "-1"
@@ -51,7 +50,6 @@ resource "aws_network_acl" "network_acl_for_private_subnet" {
     to_port    = 0
   }
 
-  # Allow all outbound traffic
   egress {
     rule_no    = 100
     protocol   = "-1"
