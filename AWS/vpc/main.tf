@@ -12,7 +12,6 @@ resource "aws_vpc" "aws_vpc" {
 
 resource "aws_internet_gateway" "internet_gateway_for_trial_vpc" {
   vpc_id = "${aws_vpc.aws_vpc.id}"
-
   tags = {
     Name = "internet_gateway_for_trial_vpc"
   }
@@ -36,6 +35,41 @@ resource "aws_subnet" "private_subnet_2" {
   tags = {
     Name = "private-subnet-2"
   }
+}
+
+# Create a Default Network ACL for private subnet
+resource "aws_network_acl" "network_acl" {
+  vpc_id = aws_vpc.aws_vpc.id
+
+  # Allow all inbound traffic
+  ingress {
+    rule_no    = 100
+    protocol   = "-1"
+    action = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  # Allow all outbound traffic
+  egress {
+    rule_no    = 100
+    protocol   = "-1"
+    action = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  tags = {
+    Name = "network-acl-for-subnet-2"
+  }
+}
+
+# Associate Network ACL with  pricate Subnet
+resource "aws_network_acl_association" "acl_association_for_private_subnet" {
+  subnet_id        = aws_subnet.private_subnet_2.id
+  network_acl_id   = aws_network_acl.network_acl.id
 }
 
 resource "aws_route_table" "route_table_1_for_internal_gateway" {
