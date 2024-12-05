@@ -65,11 +65,11 @@ output "aws_security_group" {
 
 #instance-creation
 resource "aws_instance" "myec2" {
-    ami = "ami-0453ec754f44f9a4a"
-    instance_type = "t2.nano"
-    subnet_id = data.aws_subnet.example.id
-    security_groups = [data.aws_security_group.name.id]
-    tags = {
-        Name = "Myec2"
-    }
+  ami = "ami-0453ec754f44f9a4a"
+  instance_type = "t2.nano"
+  subnet_id = data.aws_subnet.example.id
+  security_groups = [data.aws_security_group.name.id]
+  tags = {
+    Name = "Myec2"
+  }
 }  
