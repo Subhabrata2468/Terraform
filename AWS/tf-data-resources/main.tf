@@ -26,6 +26,8 @@ output "aws_ami" {
 resource "aws_instance" "myec2" {
     ami = data.aws_ami.name.id
     instance_type = "t2.nano"
+    subnet_id =
+    security_groups = 
 
     tags = {
         Name = "Myec2"

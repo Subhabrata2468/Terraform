@@ -158,3 +158,25 @@ resource "aws_route_table_association" "aws_route_table_association_2" {
   subnet_id      = aws_subnet.private_subnet_2.id
   route_table_id = aws_route_table.route_table_2_from_NAT_gateway_to_private_subnet.id
 }
+
+resource "aws_default_security_group" "Security_Group_1" {
+  vpc_id = "${aws_vpc.aws_vpc.id}"
+
+  ingress {
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "Security_Group_1"
+  }
+}
