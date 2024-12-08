@@ -24,6 +24,12 @@ variable "ec2_config" {
   }
 }
 
+variable "additional_tags" {
+  type = map(string)
+  default = {          #can give any number of tags
+    "name" = "value"
+  }
+}
 #variable "root_block_device_size" {
 #  description = "Volume size"
 #  type = number
@@ -35,11 +41,3 @@ variable "ec2_config" {
 #  type = string
 #  default = "gp2"
 #}
-
-
-variable "additional_tags" {
-  type = map(string)
-  default = {          #can give any number of tags
-    "name" = "value"
-  }
-}
