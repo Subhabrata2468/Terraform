@@ -13,6 +13,17 @@ variable "aws_instance_type" {
     }
 }
 
+variable "ec2_config" {
+  type = object({
+    v_size = number
+    v_type = string
+  })
+  default = {
+    v_size = 20
+    v_type = "gp2"
+  }
+}
+
 #variable "root_block_device_size" {
 #  description = "Volume size"
 #  type = number
@@ -25,16 +36,6 @@ variable "aws_instance_type" {
 #  default = "gp2"
 #}
 
-variable "ec2_config" {
-  type = object({
-    v_size = number
-    v_type = string
-  })
-  default = {
-    v_size = 20
-    v_type = "gp2"
-  }
-}
 
 variable "additional_tags" {
   type = map(string)
