@@ -16,12 +16,12 @@ resource "aws_instance" "ec2_instance" {
   instance_type = var.aws_instance_type
 
   root_block_device {
-    volume_size = 8
-    volume_type = "gp2"
+    volume_size = var.ec2_config.v_size
+    volume_type = var.ec2_config.v_type
     delete_on_termination = true
   }
 
-  tags = {
+  tags = merge(var.additional_tags,{
     Name = "ec2-instance"
-  }
+  })
 }

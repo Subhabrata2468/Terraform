@@ -12,3 +12,33 @@ variable "aws_instance_type" {
         error_message = "The instance type must be t2.micro or t2.nano"
     }
 }
+
+#variable "root_block_device_size" {
+#  description = "Volume size"
+#  type = number
+#  default = 20
+#}
+
+#variable "root_block_device_type" {
+#  description = "Volume type"
+#  type = string
+#  default = "gp2"
+#}
+
+variable "ec2_config" {
+  type = object({
+    v_size = number
+    v_type = string
+  })
+  default = {
+    v_size = 20
+    v_type = "gp2"
+  }
+}
+
+variable "additional_tags" {
+  type = map(string)
+  default = {          #can give any number of tags
+    "name" = "value"
+  }
+}
