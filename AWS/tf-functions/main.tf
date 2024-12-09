@@ -26,7 +26,8 @@ output "output_4" {
   value = endswith(local.value, "world")
 }
 
-# return the first 4 characters of local.value including the 0th index and excluding the 4th index
+# return the first 4 characters of local.value 
+#including the 0th index and excluding the 4th index
 output "output_5" {
   value = substr(local.value, 0, 4)
 }
@@ -77,7 +78,7 @@ output "output_13" {
   value = var.string_list
 }
 
-# returns the unique elements of the list
+# convert the list to set to remove duplicates
 output "output_14" {
   value = toset(var.string_list)
 }
