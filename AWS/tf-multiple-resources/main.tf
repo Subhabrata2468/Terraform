@@ -38,16 +38,14 @@ resource "aws_subnet" "tf_vpc_subnet" {
 
 #creating resources of instances for subnets
 resource "aws_instance" "ec2_instance" {
-  count = 4
-  ami= "ami-0453ec754f44f9a4a"
+  for_each = var.ec2_instance_ami_map
+  # we will get each.key and each.value from the map
+  ami= each.value.ami
   instance_type = "t2.micro"
-  subnet_id = element(aws_subnet.tf_vpc_subnet[*].id, count.index % length(aws_subnet.tf_vpc_subnet))
-  # 0 % 2 = 0
-  # 1 % 2 = 1
-  # 2 % 2 = 0
-  # 3 % 2 = 1  
+  subnet_id = element(aws_subnet.tf_vpc_subnet[*].id,index(keys(var.ec2_instance_ami_map),each.key) % length(aws_subnet.tf_vpc_subnet))
+  
   tags = {
-    Name = "${local.project_name}-instance-${count.index}"
+    Name = "${local.project_name}-instance-${each.key}"
   }
 }
 
@@ -60,3 +58,5 @@ output "subnet_ids" {
 output "all_subnet_ids" {
   value = aws_subnet.tf_vpc_subnet[*].id
 }
+
+
