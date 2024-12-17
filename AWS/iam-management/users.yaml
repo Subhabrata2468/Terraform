@@ -101,8 +101,6 @@ groups:
       - AmazonRedshiftFullAccess
       - AWSBackupFullAccess
 
-
-
 # Password Policy
 password_policy:
   minimum_length: 12
