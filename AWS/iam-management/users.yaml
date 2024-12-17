@@ -2,104 +2,104 @@
 
 # Developer Team
 developers:
-  - username: dev.john
-    full_name: "John Smith"
-    groups:
-      - developers
-    permissions:
-      - AWSCodeCommitPowerUser
-      - AWSCodeBuildDeveloper
-      - AWSCodePipelineDeveloper
-      - AWSLambdaBasicExecutionRole
-  
-  - username: dev.sarah
-    full_name: "Sarah Johnson"
-    groups:
-      - developers
-      - senior_developers
-    permissions:
-      - AWSCodeCommitPowerUser
-      - AWSCodeBuildDeveloper
-      - AWSCodePipelineDeveloper
-      - AWSLambdaFullAccess
+- username: dev.john
+  full_name: "John Smith"
+  groups:
+  - developers
+  permissions:
+  - AWSCodeCommitPowerUser
+  - AWSCodeBuildDeveloper
+  - AWSCodePipelineDeveloper
+  - AWSLambdaBasicExecutionRole
+
+- username: dev.sarah
+  full_name: "Sarah Johnson"
+  groups:
+  - developers
+  - senior_developers
+  permissions:
+  - AWSCodeCommitPowerUser
+  - AWSCodeBuildDeveloper
+  - AWSCodePipelineDeveloper
+  - AWSLambdaFullAccess
 
 # Operations Team
 operations:
-  - username: ops.mike
-    full_name: "Mike Anderson"
-    groups:
-      - operations
-    permissions:
-      - AmazonEC2FullAccess
-      - AmazonRDSFullAccess
-      - CloudWatchFullAccess
-      - AWSCloudFormationFullAccess
+- username: ops.mike
+  full_name: "Mike Anderson"
+  groups:
+  - operations
+  permissions:
+  - AmazonEC2FullAccess
+  - AmazonRDSFullAccess
+  - CloudWatchFullAccess
+  - AWSCloudFormationFullAccess
 
-  - username: ops.lisa
-    full_name: "Lisa Chen"
-    groups:
-      - operations
-      - security_admins
-    permissions:
-      - AmazonEC2FullAccess
-      - AmazonRDSFullAccess
-      - CloudWatchFullAccess
-      - IAMSecurityAudit
+- username: ops.lisa
+  full_name: "Lisa Chen"
+  groups:
+  - operations
+  - security_admins
+  permissions:
+  - AmazonEC2FullAccess
+  - AmazonRDSFullAccess
+  - CloudWatchFullAccess
+  - IAMSecurityAudit
 
 # Database Administrators
 db_admins:
-  - username: dba.robert
-    full_name: "Robert Wilson"
-    groups:
-      - db_admins
-    permissions:
-      - AmazonRDSFullAccess
-      - AmazonDynamoDBFullAccess
-      - AWSBackupFullAccess
+- username: dba.robert
+  full_name: "Robert Wilson"
+  groups:
+  - db_admins
+  permissions:
+  - AmazonRDSFullAccess
+  - AmazonDynamoDBFullAccess
+  - AWSBackupFullAccess
 
 # Security Team
 security:
-  - username: sec.alice
-    full_name: "Alice Brown"
-    groups:
-      - security_admins
-    permissions:
-      - IAMFullAccess
-      - SecurityAudit
-      - AWSSecurityHubFullAccess
-      - AWSConfigUserAccess
+- username: sec.alice
+  full_name: "Alice Brown"
+  groups:
+  - security_admins
+  permissions:
+  - IAMFullAccess
+  - SecurityAudit
+  - AWSSecurityHubFullAccess
+  - AWSConfigUserAccess
 
 # Groups Configuration
 groups:
   developers:
     policies:
-      - AWSCodeCommitReadOnly
-      - AmazonS3ReadOnly
-      - AWSCloudFormationReadOnly
-  
+    - AWSCodeCommitReadOnly
+    - AmazonS3ReadOnly
+    - AWSCloudFormationReadOnly
+
   senior_developers:
     policies:
-      - AWSCodeCommitPowerUser
-      - AmazonS3PowerUser
-      - AWSCloudFormationPowerUser
-  
+    - AWSCodeCommitPowerUser
+    - AmazonS3PowerUser
+    - AWSCloudFormationPowerUser
+
   operations:
     policies:
-      - AWSSystemsManagerFullAccess
-      - AmazonVPCFullAccess
-      - AWSCloudTrailReadOnly
-  
+    - AWSSystemsManagerFullAccess
+    - AmazonVPCFullAccess
+    - AWSCloudTrailReadOnly
+
   security_admins:
     policies:
-      - AWSSecurityHubFullAccess
-      - AWSConfigFullAccess
-      - CloudWatchFullAccess
-  
+    - AWSSecurityHubFullAccess
+    - AWSConfigFullAccess
+    - CloudWatchFullAccess
+
   db_admins:
     policies:
-      - AmazonRDSFullAccess
-      - AmazonRedshiftFullAccess
-      - AWSBackupFullAccess
+    - AmazonRDSFullAccess
+    - AmazonRedshiftFullAccess
+    - AWSBackupFullAccess
 
 # Password Policy
 password_policy:

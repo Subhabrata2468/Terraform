@@ -1,4 +1,4 @@
-output "users-names" {
+/*output "users-names" {
   value = toset(concat(
     yamldecode(local.iml_data).developers[*].username,
     yamldecode(local.iml_data).operations[*].username,
@@ -26,5 +26,9 @@ output "policy-names" {
 }
 output "x" {
   value = local.pair_users_groups
+}*/
+
+output "y" {
+  value = local.pair_user_permission
 }
 
