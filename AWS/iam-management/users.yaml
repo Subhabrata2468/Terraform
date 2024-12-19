@@ -8,9 +8,10 @@ developers:
   - developers
   permissions:
   - AWSCodeCommitPowerUser
-  - AWSCodeBuildDeveloper
-  - AWSCodePipelineDeveloper
-  - AWSLambdaBasicExecutionRole
+  - AWSCodeBuildDeveloperAccess
+  - AWSCodePipelineApproverAccess
+  - AWSLambdaExecute
+  - IAMUserChangePassword
 
 - username: dev.sarah
   full_name: "Sarah Johnson"
@@ -19,9 +20,10 @@ developers:
   - senior_developers
   permissions:
   - AWSCodeCommitPowerUser
-  - AWSCodeBuildDeveloper
-  - AWSCodePipelineDeveloper
-  - AWSLambdaFullAccess
+  - AWSCodeBuildDeveloperAccess
+  - AWSCodePipelineApproverAccess
+  - AWSLambda_FullAccess
+  - IAMUserChangePassword
 
 # Operations Team
 operations:
@@ -34,6 +36,7 @@ operations:
   - AmazonRDSFullAccess
   - CloudWatchFullAccess
   - AWSCloudFormationFullAccess
+  - IAMUserChangePassword
 
 - username: ops.lisa
   full_name: "Lisa Chen"
@@ -44,7 +47,8 @@ operations:
   - AmazonEC2FullAccess
   - AmazonRDSFullAccess
   - CloudWatchFullAccess
-  - IAMSecurityAudit
+  - IAMAccessAnalyzerFullAccess
+  - IAMUserChangePassword
 
 # Database Administrators
 db_admins:
@@ -56,6 +60,7 @@ db_admins:
   - AmazonRDSFullAccess
   - AmazonDynamoDBFullAccess
   - AWSBackupFullAccess
+  - IAMUserChangePassword
 
 # Security Team
 security:
@@ -68,31 +73,32 @@ security:
   - SecurityAudit
   - AWSSecurityHubFullAccess
   - AWSConfigUserAccess
+  - IAMUserChangePassword
 
 # Groups Configuration
 groups:
   developers:
     policies:
     - AWSCodeCommitReadOnly
-    - AmazonS3ReadOnly
-    - AWSCloudFormationReadOnly
+    - AmazonS3ReadOnlyAccess
+    - AWSCloudFormationReadOnlyAccess
 
   senior_developers:
     policies:
     - AWSCodeCommitPowerUser
-    - AmazonS3PowerUser
-    - AWSCloudFormationPowerUser
+    - AmazonS3TablesFullAccess
+    - AWSCloudFormationReadOnlyAccess
 
   operations:
     policies:
-    - AWSSystemsManagerFullAccess
+    - AWSSystemsManagerForSAPFullAccess
     - AmazonVPCFullAccess
-    - AWSCloudTrailReadOnly
+    - AWSCloudTrail_ReadOnlyAccess
 
   security_admins:
     policies:
     - AWSSecurityHubFullAccess
-    - AWSConfigFullAccess
+    - AWSConfigUserAccess
     - CloudWatchFullAccess
 
   db_admins:
@@ -103,7 +109,7 @@ groups:
 
 # Password Policy
 password_policy:
-  minimum_length: 12
+  minimum_length: 8
   require_uppercase: true
   require_lowercase: true
   require_numbers: true
