@@ -1,19 +1,21 @@
+output "iml-data-without-decoding" {
+  value = local.iml_data
+}
+
+output "iml-data-with-decoding" {
+  value = local.iml_data_decoded
+}
+
 output "users-names" {
-  value = toset(concat(
-    yamldecode(local.iml_data).developers[*].username,
-    yamldecode(local.iml_data).operations[*].username,
-    yamldecode(local.iml_data).db_admins[*].username,
-    yamldecode(local.iml_data).security[*].username
-  ))
+  value = local.all_users_names
 }
 
 output "groups-names" {
-  value = toset(flatten([
-    yamldecode(local.iml_data).developers[*].groups,
-    yamldecode(local.iml_data).operations[*].groups,
-    yamldecode(local.iml_data).db_admins[*].groups,
-    yamldecode(local.iml_data).security[*].groups
-  ]))
+  value = local.all_groups_name
+}
+
+output "teams-names" {
+  value = local.teams
 }
 
 output "policy-names" {
@@ -24,19 +26,23 @@ output "policy-names" {
     yamldecode(local.iml_data).security[*].permissions
   ]))
 }
-output "" {
+output "pairing-users-with-groups" {
   value = local.pair_users_groups
 }
 
-output "" {
+output "giving-permissions-to-users" {
   value = local.pair_user_permission
 }
 
-output "" {
+output "group-groups_policies" {
+  value = local.groups_policies
+}
+
+output "pairing-policies-with-group" {
   value = local.pair_group_policy
 }
 
-output "" {
-  value = 
+output "password-policies" {
+  value = local.password_policy
 }
 

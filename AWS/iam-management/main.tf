@@ -46,6 +46,7 @@ locals {
       local.iml_data_decoded.db_admins,
       local.iml_data_decoded.security
     ]
+
   # Extract users and their groups as pairs 
   pair_users_groups = {
     for pair in flatten([
@@ -58,6 +59,20 @@ locals {
         ]
       ]
     ]) : "${pair.username}-${pair.group}" => pair
+  }
+
+  # Create pairs of users and their directly assigned permissions
+  pair_user_permission= {
+    for pair in flatten([
+      for team in local.teams:[
+        for user in team:[
+          for permission in user.permissions :{
+            username = user.username,
+            permission = permission
+          }
+        ]
+      ]
+    ]) : "${pair.username}-${pair.permission}" => pair
   }
 
   # Get groups and their policies from YAML
@@ -73,20 +88,6 @@ locals {
         }
       ]
     ]) : "${pair.group_name}-${pair.policy}" => pair
-  }
-
-  # Create pairs of users and their directly assigned permissions
-  pair_user_permission= {
-    for pair in flatten([
-      for team in local.teams:[
-        for user in team:[
-          for permission in user.permissions :{
-            username = user.username,
-            permission = permission
-          }
-        ]
-      ]
-    ]) : "${pair.username}-${pair.permission}" => pair
   }
 
   # Get password policy configuration from YAML
